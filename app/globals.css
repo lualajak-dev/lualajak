@@ -1,26 +1,248 @@
+
 @import "tailwindcss";
 
+/* =========================================
+   TAILWIND THEME
+========================================= */
+
+@theme {
+  --font-heading: var(--font-syne), sans-serif;
+  --font-body: var(--font-jakarta), sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* =========================================
+   COLOUR SYSTEM
+========================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --background: #f8fafc;
+  --foreground: #0f172a;
+  --muted: #64748b;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --accent: #2563eb;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  color-scheme: dark;
+
+  --background: #030712;
+  --foreground: #f3f4f6;
+  --muted: #9ca3af;
+  --surface: #0b0f19;
+  --border: #1f2937;
+  --accent: #3b82f6;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =========================================
+   GLOBAL RESET
+========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
 body {
+  min-height: 100vh;
+  position: relative;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-jakarta), sans-serif;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-syne), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.font-mono {
+  font-family: var(--font-jetbrains), monospace;
+}
+
+::selection {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+/* =========================================
+   BACKGROUND MESH
+========================================= */
+
+.mesh-background {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(59, 130, 246, 0.08) 0%,
+      transparent 60%
+    ),
+    linear-gradient(
+      to right,
+      var(--border) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      var(--border) 1px,
+      transparent 1px
+    );
+
+  background-size:
+    100% 100%,
+    64px 64px,
+    64px 64px;
+
+  opacity: 0.5;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black 30%,
+    transparent 95%
+  );
+
+  pointer-events: none;
+}
+
+.dark .mesh-background {
+  opacity: 0.25;
+}
+
+/* =========================================
+   FLOATING AMBIENT ORBS
+========================================= */
+
+.floating-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.18;
+  pointer-events: none;
+
+  animation: orb-float 18s ease-in-out infinite alternate;
+}
+
+.dark .floating-orb {
+  opacity: 0.22;
+}
+
+.orb-one {
+  top: -10%;
+  left: -5%;
+  width: 45vw;
+  height: 45vw;
+  background: #3b82f6;
+}
+
+.orb-two {
+  top: 30%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: #06b6d4;
+  animation-delay: -5s;
+}
+
+.orb-three {
+  bottom: -5%;
+  left: 25%;
+  width: 50vw;
+  height: 50vw;
+  background: #6366f1;
+  animation-delay: -10s;
+}
+
+/* =========================================
+   PARTICLE FIELD
+========================================= */
+
+.particle-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: #3b82f6;
+  border-radius: 50%;
+  opacity: 0.4;
+
+  animation: particle-drift linear infinite;
+}
+
+.dark .particle {
+  background: #60a5fa;
+  opacity: 0.6;
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes orb-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate3d(50px, 60px, 0) scale(1.08);
+  }
+
+  100% {
+    transform: translate3d(-40px, 30px, 0) scale(0.95);
+  }
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translateY(105vh) translateX(0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translateY(-10vh) translateX(40px);
+    opacity: 0;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
