@@ -25,10 +25,10 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
 });
 
-const siteUrl = "https://YOUR-DOMAIN.com";
+const siteUrl = "https://lualajak-dev.github.io/lualajak";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(`${siteUrl}/`),
 
   title: {
     default: "Lual Ajak | AI Engineer & Builder",
@@ -42,6 +42,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Lual Ajak" }],
   creator: "Lual Ajak",
   publisher: "Lual Ajak",
+
+  verification: {
+    google: "n1A1h0PZgKPis9Qor3_ImiKuyTMYI_O8NYZpQSNCPrg",
+  },
 
   keywords: [
     "Lual Ajak",
@@ -61,20 +65,20 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "/",
+    canonical: `${siteUrl}/`,
   },
 
   openGraph: {
     title: "Lual Ajak | AI Engineer & Builder",
     description:
       "Building intelligent systems. Exploring what's possible. Discover the projects, work and ideas of Lual Ajak.",
-    url: siteUrl,
+    url: `${siteUrl}/`,
     siteName: "Lual Ajak",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
         alt: "Lual Ajak — AI Engineer and Builder",
@@ -87,7 +91,7 @@ export const metadata: Metadata = {
     title: "Lual Ajak | AI Engineer & Builder",
     description:
       "Building intelligent systems. Exploring what's possible.",
-    images: ["/og-image.png"],
+    images: [`${siteUrl}/og-image.png`],
   },
 
   robots: {
