@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import {
   Syne,
@@ -91,6 +90,7 @@ export const metadata: Metadata = {
     title: "Lual Ajak | AI Engineer & Builder",
     description:
       "Building intelligent systems. Exploring what's possible.",
+    creator: "@lualajak1",
     images: [`${siteUrl}/og-image.png`],
   },
 
@@ -112,8 +112,35 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "David Lual Benjamin Ajak",
+    alternateName: "Lual Ajak",
+    url: siteUrl,
+    jobTitle: "AI Engineer & Builder",
+    description:
+      "AI Engineer, founder, and builder from South Sudan focused on machine learning, natural language processing, and practical AI-powered products such as FocalNote AI.",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Juba",
+      addressCountry: "SS",
+    },
+    sameAs: [
+      "https://www.linkedin.com/in/lual-ajak",
+      "https://x.com/lualajak1",
+      "https://github.com/lualajak-dev",
+    ],
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${syne.variable} ${jakarta.variable} ${jetbrainsMono.variable} antialiased`}
       >
